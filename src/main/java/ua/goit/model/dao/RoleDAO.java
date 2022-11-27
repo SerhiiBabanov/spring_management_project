@@ -1,26 +1,23 @@
 package ua.goit.model.dao;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
-import java.math.BigDecimal;
 import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
 
-@Entity
-@Table(name = "products")
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
-public class ProductDao {
+@Entity
+@Table(name = "roles")
+public class RoleDAO {
     @Id
     @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
     @GeneratedValue(generator = "uuid")
@@ -28,27 +25,20 @@ public class ProductDao {
     @JdbcTypeCode(SqlTypes.UUID)
     private UUID id;
 
-
-    @Column(name = "name", nullable = false)
+    @Column(name = "role", nullable = false, unique = true)
     @JdbcTypeCode(SqlTypes.VARCHAR)
-    private String name;
+    private String role;
 
-    @Column(name = "price", precision = 10, scale = 2)
-    @JdbcTypeCode(SqlTypes.DECIMAL)
-    private BigDecimal price;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "producer_id")
-    @JdbcTypeCode(SqlTypes.UUID)
-    private ProducerDao producer;
-
+    @ManyToMany(mappedBy = "roles")
+    @ToString.Exclude
+    private Set<UserDAO> users;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        ProductDao product = (ProductDao) o;
-        return id != null && Objects.equals(id, product.id);
+        RoleDAO roleDao = (RoleDAO) o;
+        return id != null && Objects.equals(id, roleDao.id);
     }
 
     @Override

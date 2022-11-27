@@ -19,7 +19,7 @@ import java.util.UUID;
 @Setter
 @ToString
 @NoArgsConstructor
-public class ProducerDao {
+public class ProducerDAO {
     @Id
     @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.AUTO, generator = "uuid")
@@ -34,13 +34,13 @@ public class ProducerDao {
 
     @OneToMany(mappedBy = "producer")
     @ToString.Exclude
-    private Set<ProductDao> products;
+    private Set<ProductDAO> products;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        ProducerDao producer = (ProducerDao) o;
+        ProducerDAO producer = (ProducerDAO) o;
         return id != null && Objects.equals(id, producer.id);
     }
 

@@ -10,17 +10,17 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
+import java.math.BigDecimal;
 import java.util.Objects;
-import java.util.Set;
 import java.util.UUID;
 
 @Entity
+@Table(name = "products")
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
-@Table(name = "users")
-public class UserDao {
+public class ProductDAO {
     @Id
     @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
     @GeneratedValue(generator = "uuid")
@@ -28,33 +28,27 @@ public class UserDao {
     @JdbcTypeCode(SqlTypes.UUID)
     private UUID id;
 
-    @Column(name = "email", nullable = false, unique = true)
-    @JdbcTypeCode(SqlTypes.VARCHAR)
-    private String email;
 
-    @Column(name = "firstName")
+    @Column(name = "name", nullable = false)
     @JdbcTypeCode(SqlTypes.VARCHAR)
-    private String firstName;
+    private String name;
 
-    @Column(name = "lastName")
-    @JdbcTypeCode(SqlTypes.VARCHAR)
-    private String lastName;
+    @Column(name = "price", precision = 10, scale = 2)
+    @JdbcTypeCode(SqlTypes.DECIMAL)
+    private BigDecimal price;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(
-            name = "userRoles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
-    @ToString.Exclude
-    private Set<RoleDao> roles;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "producer_id")
+    @JdbcTypeCode(SqlTypes.UUID)
+    private ProducerDAO producer;
+
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        UserDao userDao = (UserDao) o;
-        return id != null && Objects.equals(id, userDao.id);
+        ProductDAO product = (ProductDAO) o;
+        return id != null && Objects.equals(id, product.id);
     }
 
     @Override
