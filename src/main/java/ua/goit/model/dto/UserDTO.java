@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ua.goit.model.dao.RoleDAO;
 
 import java.util.Set;
 import java.util.UUID;
@@ -28,7 +29,7 @@ public class UserDTO {
     @Size(max = 255)
     private String lastName;
 
-    private Set<UUID> roles;
+    private Set<RoleDAO> roles;
 
 
 }
