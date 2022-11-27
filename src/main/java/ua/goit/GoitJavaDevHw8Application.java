@@ -1,4 +1,4 @@
-package ua.goit.goitjavadevhw8;
+package ua.goit;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

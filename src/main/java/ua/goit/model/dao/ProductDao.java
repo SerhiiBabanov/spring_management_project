@@ -1,9 +1,10 @@
-package ua.goit.goitjavadevhw8.model.dao;
+package ua.goit.model.dao;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.JdbcTypeCode;
@@ -28,7 +29,6 @@ public class ProductDao {
     private UUID id;
 
 
-    @NotBlank(message = "Name may not be blank")
     @Column(name = "name", nullable = false)
     @JdbcTypeCode(SqlTypes.VARCHAR)
     private String name;
@@ -37,9 +37,8 @@ public class ProductDao {
     @JdbcTypeCode(SqlTypes.DECIMAL)
     private BigDecimal price;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "producer_id")
-    @ToString.Exclude
     @JdbcTypeCode(SqlTypes.UUID)
     private ProducerDao producer;
 

@@ -1,4 +1,4 @@
-package ua.goit.goitjavadevhw8;
+package ua.goit;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

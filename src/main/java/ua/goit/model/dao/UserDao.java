@@ -1,7 +1,10 @@
-package ua.goit.goitjavadevhw8.model.dao;
+package ua.goit.model.dao;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.JdbcTypeCode;
@@ -11,13 +14,13 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
+@Entity
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
-@Entity
-@Table(name = "roles")
-public class RoleDao {
+@Table(name = "users")
+public class UserDao {
     @Id
     @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
     @GeneratedValue(generator = "uuid")
@@ -25,20 +28,33 @@ public class RoleDao {
     @JdbcTypeCode(SqlTypes.UUID)
     private UUID id;
 
-    @Column(name = "role", nullable = false, unique = true)
+    @Column(name = "email", nullable = false, unique = true)
     @JdbcTypeCode(SqlTypes.VARCHAR)
-    private String role;
+    private String email;
 
-    @ManyToMany(mappedBy = "roles")
+    @Column(name = "firstName")
+    @JdbcTypeCode(SqlTypes.VARCHAR)
+    private String firstName;
+
+    @Column(name = "lastName")
+    @JdbcTypeCode(SqlTypes.VARCHAR)
+    private String lastName;
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name = "userRoles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
     @ToString.Exclude
-    private Set<UserDao> users;
+    private Set<RoleDao> roles;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        RoleDao roleDao = (RoleDao) o;
-        return id != null && Objects.equals(id, roleDao.id);
+        UserDao userDao = (UserDao) o;
+        return id != null && Objects.equals(id, userDao.id);
     }
 
     @Override
