@@ -32,6 +32,10 @@ public class UserDAO {
     @JdbcTypeCode(SqlTypes.VARCHAR)
     private String email;
 
+    @Column(name = "password")
+    @JdbcTypeCode(SqlTypes.VARCHAR)
+    private String password;
+
     @Column(name = "firstName")
     @JdbcTypeCode(SqlTypes.VARCHAR)
     private String firstName;
