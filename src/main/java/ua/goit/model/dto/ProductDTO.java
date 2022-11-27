@@ -1,6 +1,5 @@
 package ua.goit.model.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -23,11 +22,10 @@ public class ProductDTO {
 
     @NotNull
     @Digits(integer = 10, fraction = 2)
-    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private BigDecimal price;
 
     @NotNull
-    private UUID producers;
+    private ProducerDTO producer;
 
 
 }
