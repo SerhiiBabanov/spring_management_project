@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Products</title>
+</head>
+<body>
+<li>
+    <lu th:each="producerDTO: ${producers}" >
+        <a th:text="${producerDTO.name}"></a>
+    </lu>
+</li>
+</body>
+</html>
