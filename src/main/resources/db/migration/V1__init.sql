@@ -32,6 +32,7 @@ CREATE TABLE users
 (
     id        UUID         NOT NULL,
     email     VARCHAR(255) NOT NULL,
+    password  VARCHAR(255),
     firstName VARCHAR(255),
     lastName  VARCHAR(255),
     CONSTRAINT pk_users PRIMARY KEY (id)
@@ -47,7 +48,7 @@ ALTER TABLE products
     ADD CONSTRAINT FK_PRODUCTS_ON_PRODUCER FOREIGN KEY (producer_id) REFERENCES producers (id);
 
 ALTER TABLE userRoles
-    ADD CONSTRAINT fk_userroles_on_role_dao FOREIGN KEY (role_id) REFERENCES roles (id);
+    ADD CONSTRAINT fk_userroles_on_role_d_a_o FOREIGN KEY (role_id) REFERENCES roles (id);
 
 ALTER TABLE userRoles
-    ADD CONSTRAINT fk_userroles_on_user_dao FOREIGN KEY (user_id) REFERENCES users (id);
+    ADD CONSTRAINT fk_userroles_on_user_d_a_o FOREIGN KEY (user_id) REFERENCES users (id);
