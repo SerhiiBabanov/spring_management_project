@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Data
@@ -28,7 +28,7 @@ public class UserDTO {
     @Size(max = 255)
     private String lastName;
 
-    private List<UUID> roles;
+    private Set<UUID> roles;
 
 
 }
