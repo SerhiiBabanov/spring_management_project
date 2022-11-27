@@ -9,7 +9,6 @@ import ua.goit.model.dto.ProductDTO;
 import ua.goit.repository.ProductRepository;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -36,13 +35,10 @@ public class ProductService {
         return productRepository.save(productConverter.mapToDAO(productDTO)).getId();
     }
 
-    public void update(ProductDTO productDTO) {
-        if (Objects.nonNull(productDTO.getId()) && productRepository.existsById(productDTO.getId())) {
-            productRepository.save(productConverter.mapToDAO(productDTO));
-            return;
-        }
-
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+    public void update(UUID id, ProductDTO productDTO) {
+        productRepository.findById(id)
+                .map((p)->productRepository.save(productConverter.mapToDAO(productDTO)))
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
     public void delete(UUID id){
