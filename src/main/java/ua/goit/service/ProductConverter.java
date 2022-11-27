@@ -15,15 +15,17 @@ public class ProductConverter {
     private final ProducerConverter producerConverter;
     private final ProducerRepository producerRepository;
 
-    private ProductDTO mapToDTO(final ProductDAO productDAO, final ProductDTO productDTO) {
+    public ProductDTO mapToDTO(final ProductDAO productDAO) {
+        ProductDTO productDTO = new ProductDTO();
         productDTO.setId(productDAO.getId());
         productDTO.setName(productDAO.getName());
         productDTO.setPrice(productDAO.getPrice());
-        producerConverter.mapToDTO(productDAO.getProducer(), productDTO.getProducer());
+        productDTO.setProducer(producerConverter.mapToDTO(productDAO.getProducer()));
         return productDTO;
     }
 
-    private ProductDAO mapToDAO(final ProductDTO productDTO, final ProductDAO productDAO) {
+    public ProductDAO mapToDAO(final ProductDTO productDTO) {
+        ProductDAO productDAO = new ProductDAO();
         productDAO.setName(productDTO.getName());
         productDAO.setPrice(productDTO.getPrice());
         final ProducerDAO producerDAO = producerRepository.findById(productDTO.getProducer().getId())
