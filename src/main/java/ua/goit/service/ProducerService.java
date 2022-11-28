@@ -36,6 +36,7 @@ public class ProducerService {
     }
 
     public void update(UUID id, ProducerDTO producerDTO) {
+        producerDTO.setId(id);
         producerRepository.findById(id)
                 .map((p)->producerRepository.save(producerConverter.mapToDAO(producerDTO)))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));

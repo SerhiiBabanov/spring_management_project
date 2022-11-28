@@ -13,6 +13,7 @@ public class ProducerConverter {
     }
     public ProducerDAO mapToDAO(final ProducerDTO producerDto) {
         ProducerDAO producerDao = new ProducerDAO();
+        producerDao.setId(producerDto.getId());
         producerDao.setName(producerDto.getName());
         return producerDao;
     }

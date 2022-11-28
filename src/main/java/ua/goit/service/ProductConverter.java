@@ -21,6 +21,7 @@ public class ProductConverter {
 
     public ProductDAO mapToDAO(final ProductDTO productDTO) {
         ProductDAO productDAO = new ProductDAO();
+        productDAO.setId(productDTO.getId());
         productDAO.setName(productDTO.getName());
         productDAO.setPrice(productDTO.getPrice());
         productDAO.setProducer(producerConverter.mapToDAO(productDTO.getProducer()));

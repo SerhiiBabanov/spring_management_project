@@ -1,29 +1,12 @@
-<div th:switch="${producers}">
-    <h2 th:case="null">No producers yet!</h2>
-    <div th:case="*">
-        <h2>Producers</h2>
-        <table>
-            <thead>
-            <tr>
-                <th>Name</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="producer : ${producers}">
-                <td th:text="${producer.name}"></td>
-                <td><a class="btn btn-primary" th:href="@{/producers/{id}(id=${producer.id})}">Edit</a></td>
-                <td>
-                    <button class="btn btn-primary" th:attr="onclick=|makeDELETErequest('/producers/${producer.id}')|">Delete
-                    </button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <p><a href="/producers/create">Add a new producer</a></p>
-</div>
+<form action="#"
+      th:object="${producer}">
+    <label for="name">Name</label>
+    <input class="form-control" type="text" th:field="*{name}" id="name" placeholder="Name">
+    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+    <button type="submit" name="update_data" th:attr="resource=|/producers/${producer.id}|" >Update producer</button>
+</form>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 <script>
     function makePUTrequest(urlParametr) {
         $.ajax({
