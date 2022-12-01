@@ -7,6 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 import ua.goit.model.dto.ProducerDTO;
 import ua.goit.service.ProducerService;
 
+import java.util.Map;
 import java.util.UUID;
 
 @Controller
@@ -22,8 +23,8 @@ public class ProducerController {
         return result;
     }
     @GetMapping("/create")
-    public ModelAndView getCreateForm(){
-        return new ModelAndView("createProducerForm");
+    public String getCreateForm(){
+        return "createProducerForm";
     }
 
     @GetMapping("/{id}")
@@ -34,15 +35,19 @@ public class ProducerController {
     }
 
     @PutMapping("/{id}")
-    public ModelAndView update(@RequestBody ProducerDTO producerDTO, @PathVariable("id") UUID id) {
+    @ResponseBody
+    public Map<String, Object> update(@RequestBody ProducerDTO producerDTO, @PathVariable("id") UUID id) {
         producerService.update(id, producerDTO);
-        return getProducersById(id);
+        return Map.of(
+                "result", "success",
+                "id", id
+        );
     }
 
     @PostMapping
-    public ModelAndView create(@ModelAttribute ProducerDTO producerDTO) {
-        producerService.create(producerDTO);
-        return getProducers();
+    public String create(@ModelAttribute ProducerDTO producerDTO) {
+        UUID id = producerService.create(producerDTO);
+        return "redirect:/producers/" + id;
     }
 
     @DeleteMapping("/{id}")

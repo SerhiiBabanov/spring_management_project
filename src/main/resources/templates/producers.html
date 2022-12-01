@@ -25,15 +25,7 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
-    function makePUTrequest(urlParametr) {
-        $.ajax({
-            url: urlParametr,
-            type: 'PUT',
-            success: function () {
-                location.reload();
-            }
-        });
-    }
+
 
     function makeDELETErequest(urlParametr) {
         if (confirm('Are you sure you want to delete this?')) {
