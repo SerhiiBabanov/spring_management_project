@@ -1,0 +1,14 @@
+<form action="#" th:action="@{/products/create}" th:object="${product}" method="post">
+    <label for="name">Name</label>
+    <input type="text" th:field="*{name}" id="name" placeholder="Name">
+    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+    <label for="price">Price</label>
+    <input type="number" th:field="*{price}" id="price" step=".01" placeholder="Price">
+    <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
+    <label for="producer">Producer</label>
+    <select th:field="*{producerId}" id="producerId">
+        <option value="0">select producer</option>
+        <option th:each="producer : ${producers}" th:value="${producer.id}" th:text="${producer.name}"></option>
+    </select>
+    <input type="submit" value="Add product">
+</form>
