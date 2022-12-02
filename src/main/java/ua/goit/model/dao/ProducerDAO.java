@@ -1,13 +1,14 @@
 package ua.goit.model.dao;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
-
 
 import java.util.Objects;
 import java.util.Set;
@@ -27,12 +28,12 @@ public class ProducerDAO {
     @JdbcTypeCode(SqlTypes.UUID)
     private UUID id;
 
-    @NotBlank(message = "Name may not be blank")
+
     @Column(name = "name", nullable = false)
     @JdbcTypeCode(SqlTypes.VARCHAR)
     private String name;
 
-    @OneToMany(mappedBy = "producer")
+    @OneToMany(mappedBy = "producer", fetch = FetchType.LAZY)
     @ToString.Exclude
     private Set<ProductDAO> products;
 

@@ -1,6 +1,8 @@
 package ua.goit.model.dao;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -31,10 +33,12 @@ public class ProductDAO {
 
     @Column(name = "name", nullable = false)
     @JdbcTypeCode(SqlTypes.VARCHAR)
+    @Size(max = 255)
     private String name;
 
     @Column(name = "price", precision = 10, scale = 2)
     @JdbcTypeCode(SqlTypes.DECIMAL)
+    @NotNull(message = "Price required")
     private BigDecimal price;
 
     @ManyToOne(fetch = FetchType.EAGER)

@@ -20,12 +20,14 @@ public class ProductDTO {
     @Size(max = 255)
     private String name;
 
-    @NotNull
+    @NotNull(message = "Price required")
     @Digits(integer = 10, fraction = 2)
     private BigDecimal price;
 
-    @NotNull
     private ProducerDTO producer;
+
+    @NotNull(message = "Producer must be select")
+    private UUID producerId;
 
 
 }

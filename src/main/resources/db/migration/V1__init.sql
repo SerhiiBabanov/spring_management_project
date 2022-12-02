@@ -45,7 +45,7 @@ ALTER TABLE users
     ADD CONSTRAINT uc_users_email UNIQUE (email);
 
 ALTER TABLE products
-    ADD CONSTRAINT FK_PRODUCTS_ON_PRODUCER FOREIGN KEY (producer_id) REFERENCES producers (id);
+    ADD CONSTRAINT FK_PRODUCTS_ON_PRODUCER FOREIGN KEY (producer_id) REFERENCES producers (id) ON DELETE CASCADE;
 
 ALTER TABLE userRoles
     ADD CONSTRAINT fk_userroles_on_role_d_a_o FOREIGN KEY (role_id) REFERENCES roles (id);

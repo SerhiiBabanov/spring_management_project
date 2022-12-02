@@ -16,6 +16,7 @@ public class ProductConverter {
         productDTO.setName(productDAO.getName());
         productDTO.setPrice(productDAO.getPrice());
         productDTO.setProducer(producerConverter.mapToDTO(productDAO.getProducer()));
+        productDTO.setProducerId(productDAO.getProducer().getId());
         return productDTO;
     }
 

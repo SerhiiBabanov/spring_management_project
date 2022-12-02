@@ -1,13 +1,14 @@
 package ua.goit.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import ua.goit.model.dto.ProducerDTO;
 import ua.goit.service.ProducerService;
 
-import java.util.Map;
 import java.util.UUID;
 
 @Controller
@@ -22,8 +23,9 @@ public class ProducerController {
         result.addObject("producers", producerService.findAll());
         return result;
     }
+
     @GetMapping("/create")
-    public String getCreateForm(){
+    public String getCreateForm() {
         return "createProducerForm";
     }
 
@@ -36,16 +38,19 @@ public class ProducerController {
 
     @PutMapping("/{id}")
     @ResponseBody
-    public Map<String, Object> update(@RequestBody ProducerDTO producerDTO, @PathVariable("id") UUID id) {
+    public String update(@Valid @RequestBody ProducerDTO producerDTO, BindingResult result, @PathVariable("id") UUID id) {
+        if (result.hasErrors()) {
+            return "producerEditForm";
+        }
         producerService.update(id, producerDTO);
-        return Map.of(
-                "result", "success",
-                "id", id
-        );
+        return "producerEditForm";
     }
 
-    @PostMapping
-    public String create(@ModelAttribute ProducerDTO producerDTO) {
+    @PostMapping("/create")
+    public String create(@Valid @ModelAttribute("producer") ProducerDTO producerDTO, BindingResult result) {
+        if (result.hasErrors()) {
+            return "createProducerForm";
+        }
         UUID id = producerService.create(producerDTO);
         return "redirect:/producers/" + id;
     }
@@ -57,7 +62,7 @@ public class ProducerController {
     }
 
     @ModelAttribute("producer")
-    public ProducerDTO defaultProducer(){
+    public ProducerDTO getDefaultProducer() {
         return new ProducerDTO();
     }
 

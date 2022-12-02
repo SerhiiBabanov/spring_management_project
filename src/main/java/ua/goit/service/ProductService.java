@@ -36,6 +36,7 @@ public class ProductService {
     }
 
     public void update(UUID id, ProductDTO productDTO) {
+        productDTO.setId(id);
         productRepository.findById(id)
                 .map((p)->productRepository.save(productConverter.mapToDAO(productDTO)))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
