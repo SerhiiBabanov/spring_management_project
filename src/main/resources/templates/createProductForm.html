@@ -7,8 +7,9 @@
     <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
     <label for="producer">Producer</label>
     <select th:field="*{producerId}" id="producerId">
-        <option value="0">select producer</option>
+        <option value="">select producer</option>
         <option th:each="producer : ${producers}" th:value="${producer.id}" th:text="${producer.name}"></option>
     </select>
+    <span th:if="${#fields.hasErrors('producerId')}" th:errors="*{producerId}"></span>
     <input type="submit" value="Add product">
 </form>
