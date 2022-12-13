@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import ua.goit.model.dao.RoleDAO;
 
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -29,7 +29,7 @@ public class UserDTO {
     @Size(max = 255)
     private String lastName;
 
-    private Set<RoleDAO> roles;
+    private List<RoleDAO> roles;
 
 
 }

@@ -2,6 +2,7 @@ package ua.goit.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -19,42 +20,46 @@ public class ProducerController {
 
     @GetMapping
     public ModelAndView getProducers() {
-        ModelAndView result = new ModelAndView("producers");
+        ModelAndView result = new ModelAndView("producers/producers");
         result.addObject("producers", producerService.findAll());
         return result;
     }
 
+    @Secured(value = "ROLE_ADMIN")
     @GetMapping("/create")
     public String getCreateForm() {
-        return "createProducerForm";
+        return "producers/createProducerForm";
     }
 
     @GetMapping("/{id}")
     public ModelAndView getProducersById(@PathVariable("id") UUID id) {
-        ModelAndView result = new ModelAndView("producerEditForm");
+        ModelAndView result = new ModelAndView("producers/producerEditForm");
         result.addObject("producer", producerService.get(id));
         return result;
     }
 
+    @Secured(value = "ROLE_ADMIN")
     @PutMapping("/{id}")
     @ResponseBody
     public String update(@Valid @RequestBody ProducerDTO producerDTO, BindingResult result, @PathVariable("id") UUID id) {
         if (result.hasErrors()) {
-            return "producerEditForm";
+            return "producers/producerEditForm";
         }
         producerService.update(id, producerDTO);
-        return "producerEditForm";
+        return "redirect:/producers";
     }
 
+    @Secured(value = "ROLE_ADMIN")
     @PostMapping("/create")
     public String create(@Valid @ModelAttribute("producer") ProducerDTO producerDTO, BindingResult result) {
         if (result.hasErrors()) {
-            return "createProducerForm";
+            return "producers/createProducerForm";
         }
         UUID id = producerService.create(producerDTO);
         return "redirect:/producers/" + id;
     }
 
+    @Secured(value = "ROLE_ADMIN")
     @DeleteMapping("/{id}")
     public ModelAndView delete(@PathVariable("id") UUID id) {
         producerService.delete(id);

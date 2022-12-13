@@ -10,4 +10,5 @@ public class GoitJavaDevHw8Application {
         SpringApplication.run(GoitJavaDevHw8Application.class, args);
     }
 
+
 }

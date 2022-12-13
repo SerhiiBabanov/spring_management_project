@@ -7,14 +7,14 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import java.util.UUID;
 
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "roles")
 public class RoleDAO {
@@ -27,11 +27,16 @@ public class RoleDAO {
 
     @Column(name = "role", nullable = false, unique = true)
     @JdbcTypeCode(SqlTypes.VARCHAR)
-    private String role;
+    private String name;
 
-    @ManyToMany(mappedBy = "roles")
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
     @ToString.Exclude
-    private Set<UserDAO> users;
+    private List<UserDAO> users;
+
+    @Override
+    public String toString() {
+        return name + ' ';
+    }
 
     @Override
     public boolean equals(Object o) {

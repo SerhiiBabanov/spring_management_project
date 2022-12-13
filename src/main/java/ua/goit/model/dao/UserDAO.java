@@ -1,5 +1,6 @@
 package ua.goit.model.dao;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,8 +11,8 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -34,24 +35,26 @@ public class UserDAO {
 
     @Column(name = "password")
     @JdbcTypeCode(SqlTypes.VARCHAR)
+    @JsonIgnore
+    @ToString.Exclude
     private String password;
 
-    @Column(name = "firstName")
+    @Column(name = "first_name")
     @JdbcTypeCode(SqlTypes.VARCHAR)
     private String firstName;
 
-    @Column(name = "lastName")
+    @Column(name = "last_name")
     @JdbcTypeCode(SqlTypes.VARCHAR)
     private String lastName;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinTable(
-            name = "userRoles",
+            name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     @ToString.Exclude
-    private Set<RoleDAO> roles;
+    private List<RoleDAO> roles;
 
     @Override
     public boolean equals(Object o) {
