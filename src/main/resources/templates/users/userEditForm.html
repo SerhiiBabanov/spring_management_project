@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit User</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <script src="/js/scripts.js" th:src="@{/js/scripts.js}" defer></script>
+    <script src="/js/jquery-3.6.1.min.js" th:src="@{/js/jquery-3.6.1.min.js}"></script>
+</head>
+<body>
+<div th:replace="fragments/general :: header">&nbsp;</div>
+<div class="container">
+    <form th:object="${user}" th:attr="action=|/users/${user.id}|" method="post">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" th:field="*{email}" id="email" placeholder="Email">
+        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+        <label for="firstName">First Name</label>
+        <input type="text" class="form-control" th:field="*{firstName}" id="firstName" step=".01" placeholder="First Name">
+        <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
+        <label for="lastName">Last Name</label>
+        <input type="text" class="form-control" th:field="*{lastName}" id="lastName" step=".01" placeholder="Last Name">
+        <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
+        <label for="password">Password</label>
+        <input type="password" class="form-control" th:field="*{password}" id="password" placeholder="Password">
+        <p>
+            <label>Roles:
+                <input type="checkbox" name="roles"
+                       th:each="role : ${roles}"
+                       th:text="${role.name}"
+                       th:value="${role.id}"
+                       th:field="*{roles}"
+                />
+            </label>
+        </p>
+<!--        <ul>-->
+<!--            <li th:each="role : ${roles}">-->
+<!--                <input type="checkbox" th:name="roles" th:value="${role.id}" th:cheked/>-->
+<!--                <label th:text="${role.name}"></label>-->
+<!--            </li>-->
+<!--        </ul>-->
+        <button class="btn btn-secondary" type="submit">
+            Update user
+        </button>
+    </form>
+</div>
+</body>
+</html>

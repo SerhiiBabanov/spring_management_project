@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+    <link th:href = "@{/css/bootstrap.min.css}" rel="stylesheet">
+    <script src="/js/scripts.js" th:src="@{/js/scripts.js}" defer></script>
+    <script src="/js/jquery-3.6.1.min.js" th:src="@{/js/jquery-3.6.1.min.js}"></script>
+</head>
+<body>
+<div th:replace="fragments/general :: header">&nbsp;</div>
+<div class="container">
+    <div th:switch="${users}">
+        <h2 th:case="null">No users yet!</h2>
+        <div th:case="*">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Email</th>
+                    <th>First name</th>
+                    <th>Last name</th>
+                    <th>Roles</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user : ${users}">
+                    <td th:text="${user.email}"></td>
+                    <td th:text="${user.firstName}"></td>
+                    <td th:text="${user.lastName}"></td>
+                    <td th:text="${user.roles}"></td>
+                    <td><a class="btn btn-secondary" th:href="@{/users/{id}(id=${user.id})}">Edit</a></td>
+                    <td>
+                        <button class="btn btn-danger"
+                                th:attr="onclick=|makeDELETErequest('/users/${user.id}')|">Delete
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <p><a class="btn btn-secondary" href="/users/create">Add a new user</a></p>
+    </div>
+</div>
+</body>
+</html>
+
+

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Producer</title>
+    <link th:href = "@{/css/bootstrap.min.css}" rel="stylesheet">
+    <script src="/js/scripts.js" th:src="@{/js/scripts.js}" defer></script>
+    <script src="/js/jquery-3.6.1.min.js" th:src="@{/js/jquery-3.6.1.min.js}"></script>
+</head>
+<body>
+<div th:replace="fragments/general :: header">&nbsp;</div>
+<div class="container">
+    <form th:object="${producer}">
+        <label for="name">Name</label>
+        <input class="form-control" type="text" th:field="*{name}" id="name" placeholder="Name">
+        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+        <button class="btn btn-secondary" type="submit" name="update_data" th:attr="resource=|/producers/${producer.id}|" >Update producer</button>
+    </form>
+</div>
+</body>
+</html>
+
+

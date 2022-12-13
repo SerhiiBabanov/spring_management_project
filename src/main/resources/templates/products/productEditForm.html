@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Product</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <script src="/js/scripts.js" th:src="@{/js/scripts.js}" defer></script>
+    <script src="/js/jquery-3.6.1.min.js" th:src="@{/js/jquery-3.6.1.min.js}"></script>
+</head>
+<body>
+<div th:replace="fragments/general :: header">&nbsp;</div>
+<div class="container">
+    <form id="formEdit" th:object="${product}">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" th:field="*{name}" id="name" placeholder="Name">
+        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+        <label for="price">Price</label>
+        <input type="number" class="form-control" th:field="*{price}" id="price" step=".01" placeholder="Price">
+        <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
+        <label for="producerId">Producer</label>
+        <select th:field="*{producerId}" class="form-select" id="producerId" placeholder="producer">
+            <option th:value="${product.producer.id}" th:text="${product.producer.name}"></option>
+            <option th:each="producer : ${producers}" th:value="${producer.id}" th:text="${producer.name}"></option>
+        </select>
+        <button class="btn btn-secondary update_data" type="submit"  name="update_data" th:attr="resource=|/products/${product.id}|">
+            Update product
+        </button>
+    </form>
+</div>
+
+</body>
+</html>

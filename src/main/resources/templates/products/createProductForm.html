@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Producer</title>
+    <link th:href = "@{/css/bootstrap.min.css}" rel="stylesheet">
+    <script src="/js/jquery-3.6.1.min.js" th:src="@{/js/jquery-3.6.1.min.js}"></script>
+</head>
+<body>
+<div th:replace="fragments/general :: header">&nbsp;</div>
+<div class="container">
+    <form action="#" th:action="@{/products/create}" th:object="${product}" method="post">
+        <label for="name">Name</label>
+        <input type="text" th:field="*{name}" id="name" placeholder="Name">
+        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+        <label for="price">Price</label>
+        <input type="number" th:field="*{price}" id="price" step=".01" placeholder="Price">
+        <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
+        <label for="producerId">Producer</label>
+        <select th:field="*{producerId}" id="producerId">
+            <option value="">select producer</option>
+            <option th:each="producer : ${producers}" th:value="${producer.id}" th:text="${producer.name}"></option>
+        </select>
+        <span th:if="${#fields.hasErrors('producerId')}" th:errors="*{producerId}"></span>
+        <button class="btn btn-secondary" type="submit">Add product</button>
+    </form>
+</div>
+</body>
+</html>
+
+
