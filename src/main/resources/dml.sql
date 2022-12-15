@@ -1,7 +1,7 @@
 INSERT INTO public.roles (id, role) VALUES ('4e3c27be-76de-496a-bed2-fb2dcb71ab7a', 'ROLE_USER');
 INSERT INTO public.roles (id, role) VALUES ('072f378d-a7a8-44db-856a-4044668dfbe3', 'ROLE_ADMIN');
 
-INSERT INTO public.users (id, email, password, first_name, last_name) VALUES ('e9072bc9-9402-45eb-8e9a-cc088692879c', 'admin@admin.com', '$2a$10$IskOEsfin70kKmpcsJjTdemFkPnhPEUq94mTKXY.Z1xxuROaaNf9q', 'Admin', 'Admin');
+INSERT INTO public.users (id, email, password, first_name, last_name) VALUES ('e9072bc9-9402-45eb-8e9a-cc088692879c', 'admin@admin.com', '$2a$10$63GAffXSkhqYsStMCIynhOGs7UTvXNSKK4p6F6R5rV4MK4lN71byS', 'Admin', 'Admin');
 
 INSERT INTO public.userroles (role_id, user_id) VALUES ('4e3c27be-76de-496a-bed2-fb2dcb71ab7a', 'e9072bc9-9402-45eb-8e9a-cc088692879c');
 INSERT INTO public.userroles (role_id, user_id) VALUES ('072f378d-a7a8-44db-856a-4044668dfbe3', 'e9072bc9-9402-45eb-8e9a-cc088692879c');
