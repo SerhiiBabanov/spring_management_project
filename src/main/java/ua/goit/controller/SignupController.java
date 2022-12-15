@@ -25,17 +25,17 @@ public class SignupController {
 
     @GetMapping
     public String signup() {
-        return "/signup/signup";
+        return "signup/signup";
     }
 
     @PostMapping
     public String signup(@ModelAttribute("user") UserDTO userDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "/signup/signup";
+            return "signup/signup";
         }
         if (userService.isExistEmail(userDTO.getEmail())){
             bindingResult.addError(new ObjectError("email", "Email already in use"));
-            return "/signup/signup";
+            return "signup/signup";
         }
         userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         userDTO.setEmail(userDTO.getEmail().toLowerCase());
