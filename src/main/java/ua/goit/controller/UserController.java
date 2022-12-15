@@ -57,13 +57,13 @@ public class UserController {
         } else {
             userDTO.setPassword(userService.get(id).getPassword());
         }
+        userDTO.setEmail(userDTO.getEmail().toLowerCase());
         userService.update(id, userDTO);
         return "redirect:/users";
     }
 
     @PostMapping("/create")
     public String create(@Valid @ModelAttribute("user") UserDTO userDTO,
-                         @RequestParam(value = "roles", required = false) UUID[] roles,
                          BindingResult result) {
         if (result.hasErrors()) {
             return "users/createUserForm";

@@ -13,7 +13,7 @@ import ua.goit.model.dto.UserDTO;
 import ua.goit.service.RoleService;
 import ua.goit.service.UserService;
 
-import java.util.UUID;
+import java.util.Collections;
 
 @Controller
 @RequestMapping("/signup")
@@ -38,7 +38,9 @@ public class SignupController {
             return "/signup/signup";
         }
         userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-        UUID id = userService.create(userDTO);
+        userDTO.setEmail(userDTO.getEmail().toLowerCase());
+        userDTO.setRoles(Collections.singletonList(roleService.findByName("ROLE_USER")));
+        userService.create(userDTO);
         return "redirect:/home";
 
     }
