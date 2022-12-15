@@ -21,7 +21,7 @@ CREATE TABLE roles
     CONSTRAINT pk_roles PRIMARY KEY (id)
 );
 
-CREATE TABLE userRoles
+CREATE TABLE userroles
 (
     role_id UUID NOT NULL,
     user_id UUID NOT NULL,
