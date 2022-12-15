@@ -10,9 +10,6 @@
 <div th:replace="~{fragments/general :: header}">&nbsp;</div>
 <div class="container">
   <form th:action="@{/signing}" method="post">
-    <th:block th:if="${param.error != null}">
-      <div th:replace="fragments/alert :: alert (type='danger', message='Sign in error. Please try again.')">Alert</div>
-    </th:block>
     <fieldset>
       <div class="form-group">
         <label for="inputEmail" class="col-lg-2 control-label">Email</label>

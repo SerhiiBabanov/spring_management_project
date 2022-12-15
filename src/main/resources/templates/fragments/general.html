@@ -27,10 +27,10 @@
             </ul>
             <ul class="navbar-nav ms-auto justify-content-end">
                 <li class="nav-item" th:if="${#authorization.expression('!isAuthenticated()')}">
-                    <a class="nav-link" href="/signing" th:href="@{/signing}">Sign in</a>
+                    <a class="nav-link" href="/signing" th:href="@{/signing}">Sign&nbsp;in</a>
                 </li>
                 <li class="nav-item" th:if="${#authorization.expression('isAuthenticated()')}">
-                    <a href="#"  onclick="$('#form').submit();">Logout</a>
+                    <a class="nav-link" href="#"  onclick="$('#form').submit();">Logout</a>
                     <form style="visibility: hidden" id="form" method="post" action="#" th:action="@{/logout}"></form>
                 </li>
             </ul>
