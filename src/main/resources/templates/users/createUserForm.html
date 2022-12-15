@@ -7,7 +7,7 @@
     <script src="/js/jquery-3.6.1.min.js" th:src="@{/js/jquery-3.6.1.min.js}"></script>
 </head>
 <body>
-<div th:replace="fragments/general :: header">&nbsp;</div>
+<div th:replace="~{fragments/general :: header}">&nbsp;</div>
 <div class="container">
     <form th:object="${user}" th:action="@{/users/create}" method="post">
         <label for="email">Email</label>

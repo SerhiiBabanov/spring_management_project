@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Spring boot demo example - hw8</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -7,11 +7,14 @@
     <script src="/js/jquery-3.6.1.min.js" th:src="@{/js/jquery-3.6.1.min.js}"></script>
 </head>
 <body>
-<div th:replace="fragments/general :: header">...</div>
+<div th:replace="~{fragments/general :: header}">...</div>
 <div class="container">
     <div class="position-absolute top-50 start-50 translate-middle">
         <p class="text-center">
-            <a class="nav-link" href="/signup" th:href="@{/signup}">Sign up</a>
+            <a class="btn btn-secondary" href="/signing" th:href="@{/signing}">Sign in</a><br><br><br>
+        </p>
+        <p class="text-center">
+            <a class="btn btn-secondary" href="/signup" th:href="@{/signup}">Sign up</a>
         </p>
 
     </div>
