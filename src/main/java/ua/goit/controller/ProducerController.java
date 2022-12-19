@@ -40,13 +40,12 @@ public class ProducerController {
 
     @Secured(value = "ROLE_ADMIN")
     @PutMapping("/{id}")
-    @ResponseBody
     public String update(@Valid @RequestBody ProducerDTO producerDTO, BindingResult result, @PathVariable("id") UUID id) {
         if (result.hasErrors()) {
             return "producers/producerEditForm";
         }
         producerService.update(id, producerDTO);
-        return "redirect:/producers";
+        return "producers/producers";
     }
 
     @Secured(value = "ROLE_ADMIN")

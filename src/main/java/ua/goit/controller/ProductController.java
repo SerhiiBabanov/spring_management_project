@@ -49,7 +49,7 @@ public class ProductController {
         }
         productDTO.setProducer(producerService.get(productDTO.getProducerId()));
         productService.update(id, productDTO);
-        return "redirect:/products";
+        return "products/products";
 
     }
     @Secured(value = "ROLE_ADMIN")
